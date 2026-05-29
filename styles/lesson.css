@@ -178,17 +178,33 @@
 }
 .demo-editor,
 #exercise-editor {
+  /* Legacy textarea fallback — hidden once CodeMirror mounts */
   width: 100%;
   background: var(--code-bg);
   color: var(--text);
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.6;
   padding: 1rem;
   border: none;
   resize: vertical;
-  min-height: 220px;
+  min-height: 160px;
   outline: none;
+}
+
+/* CodeMirror host containers */
+.cm-host {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.cm-host .cm-editor {
+  border-radius: var(--radius-sm);
+}
+.cm-host .cm-editor.cm-focused {
+  outline: none;
+}
+.cm-host .cm-scroller {
+  max-height: 340px;
 }
 .editor-actions {
   display: flex;

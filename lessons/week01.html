@@ -68,13 +68,7 @@
         <button class="btn-secondary" onclick="copyCode(demo1code, this)">Copy</button>
       </div>
       <div class="editor-wrap">
-        <textarea class="demo-editor" id="ed1" spellcheck="false">public class HelloWorld {
-
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-
-}</textarea>
+        <div class="cm-host" id="ed1"></div>
       </div>
       <div class="editor-actions" style="margin-top:0.75rem">
         <button class="btn-primary" onclick="runDemo('ed1', 'out1')">▶ Run</button>
@@ -107,18 +101,7 @@
         <button class="btn-secondary" onclick="copyCode(demo2code, this)">Copy</button>
       </div>
       <div class="editor-wrap">
-        <textarea class="demo-editor" id="ed2" spellcheck="false">public class PrintDemo {
-    public static void main(String[] args) {
-
-        // println adds a newline at the end
-        System.out.println("First line");
-        System.out.println("Second line");
-
-        // print does NOT add a newline
-        System.out.print("Hello, ");
-        System.out.print("World!");
-    }
-}</textarea>
+        <div class="cm-host" id="ed2"></div>
       </div>
       <div class="editor-actions" style="margin-top:0.75rem">
         <button class="btn-primary" onclick="runDemo('ed2', 'out2')">▶ Run</button>
@@ -178,22 +161,7 @@
         <button class="btn-secondary" onclick="copyCode(demo3code, this)">Copy</button>
       </div>
       <div class="editor-wrap">
-        <textarea class="demo-editor" id="ed3" spellcheck="false">public class Variables {
-    public static void main(String[] args) {
-
-        int age = 15;
-        double height = 1.75;
-        boolean isStudent = true;
-        char grade = 'A';
-        String name = "Alex";
-
-        System.out.println("Name:    " + name);
-        System.out.println("Age:     " + age);
-        System.out.println("Height:  " + height + "m");
-        System.out.println("Student: " + isStudent);
-        System.out.println("Grade:   " + grade);
-    }
-}</textarea>
+        <div class="cm-host" id="ed3"></div>
       </div>
       <div class="editor-actions" style="margin-top:0.75rem">
         <button class="btn-primary" onclick="runDemo('ed3', 'out3')">▶ Run</button>
@@ -228,27 +196,7 @@
         <button class="btn-secondary" onclick="copyCode(demo4code, this)">Copy</button>
       </div>
       <div class="editor-wrap">
-        <textarea class="demo-editor" id="ed4" spellcheck="false">public class Strings {
-    public static void main(String[] args) {
-
-        String first = "Java";
-        String second = "Surfer";
-
-        // Concatenation
-        System.out.println(first + " " + second);
-
-        // Escape characters
-        System.out.println("Line 1\nLine 2\nLine 3");
-        System.out.println("She said: \"Hello!\"");
-
-        // String + number
-        int score = 100;
-        System.out.println("Score: " + score);
-
-        // String length
-        System.out.println("Length: " + first.length());
-    }
-}</textarea>
+        <div class="cm-host" id="ed4"></div>
       </div>
       <div class="editor-actions" style="margin-top:0.75rem">
         <button class="btn-primary" onclick="runDemo('ed4', 'out4')">▶ Run</button>
@@ -273,20 +221,7 @@ Fun fact:  I can solve a Rubik's cube in under 2 minutes.
 ==================</code></pre>
 
     <div class="editor-wrap">
-      <textarea id="exercise-editor" spellcheck="false">public class BioCard {
-    public static void main(String[] args) {
-
-        // Declare your variables here
-        String name    = "Alex";
-        int    age     = 15;
-        String hobby   = "surfing";
-        String funFact = "I can solve a Rubik's cube in under 2 minutes.";
-
-        // Print the bio card
-        // TODO: print each line using the variables above
-
-    }
-}</textarea>
+      <div class="cm-host" id="exercise-editor"></div>
     </div>
 
     <div class="editor-actions">
@@ -376,30 +311,106 @@ Fun fact:  I can solve a Rubik's cube in under 2 minutes.
 <script src="../scripts/quiz.js"></script>
 <script src="../scripts/progress.js"></script>
 
-<script>
-function runDemo(editorId, outputId) {
-  const code = document.getElementById(editorId).value;
-  const el   = document.getElementById(outputId);
-  runJava(code, el);
-}
+<script type="module">
+import { mountEditor, getCode } from '../scripts/editor.js';
 
-async function copyEditor(editorId, btn) {
-  const code = document.getElementById(editorId).value;
-  await copyCode(code, btn);
-}
+// Initial code for each demo
+const CODE = {
+  ed1: `public class HelloWorld {
 
-// Exercise
-const exerciseEditor = document.getElementById('exercise-editor');
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+
+}`,
+  ed2: `public class PrintDemo {
+    public static void main(String[] args) {
+
+        // println adds a newline at the end
+        System.out.println("First line");
+        System.out.println("Second line");
+
+        // print does NOT add a newline
+        System.out.print("Hello, ");
+        System.out.print("World!");
+    }
+}`,
+  ed3: `public class Variables {
+    public static void main(String[] args) {
+
+        int age = 15;
+        double height = 1.75;
+        boolean isStudent = true;
+        char grade = 'A';
+        String name = "Alex";
+
+        System.out.println("Name:    " + name);
+        System.out.println("Age:     " + age);
+        System.out.println("Height:  " + height + "m");
+        System.out.println("Student: " + isStudent);
+        System.out.println("Grade:   " + grade);
+    }
+}`,
+  ed4: `public class Strings {
+    public static void main(String[] args) {
+
+        String first = "Java";
+        String second = "Surfer";
+
+        // Concatenation
+        System.out.println(first + " " + second);
+
+        // Escape characters
+        System.out.println("Line 1\\nLine 2\\nLine 3");
+        System.out.println("She said: \\"Hello!\\"");
+
+        // String + number
+        int score = 100;
+        System.out.println("Score: " + score);
+
+        // String length
+        System.out.println("Length: " + first.length());
+    }
+}`,
+  'exercise-editor': `public class BioCard {
+    public static void main(String[] args) {
+
+        // Declare your variables here
+        String name    = "Alex";
+        int    age     = 15;
+        String hobby   = "surfing";
+        String funFact = "I can solve a Rubik's cube in under 2 minutes.";
+
+        // Print the bio card
+        // TODO: print each line using the variables above
+
+    }
+}`,
+};
+
+// Mount all editors
+Object.entries(CODE).forEach(([id, code]) => mountEditor(id, code));
+
+// Expose helpers to onclick attributes
+window.runDemo = (editorId, outputId) => {
+  const el = document.getElementById(outputId);
+  runJava(getCode(editorId), el);
+};
+window.copyEditor = async (editorId, btn) => {
+  await copyCode(getCode(editorId), btn);
+};
+
+// Exercise buttons
 document.getElementById('run-exercise').addEventListener('click', () => {
   const out = document.getElementById('exercise-output');
   out.classList.add('visible');
-  runJava(exerciseEditor.value, out);
+  runJava(getCode('exercise-editor'), out);
 });
 document.getElementById('hint-btn').addEventListener('click', () => {
   document.getElementById('hint-box').classList.toggle('visible');
 });
 document.getElementById('copy-exercise').addEventListener('click', async () => {
-  await copyCode(exerciseEditor.value, document.getElementById('copy-exercise'));
+  await copyCode(getCode('exercise-editor'), document.getElementById('copy-exercise'));
 });
 
 // Progress
