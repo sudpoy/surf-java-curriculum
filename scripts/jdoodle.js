@@ -1,31 +1,37 @@
-// Piston API — free, no API key required, CORS-enabled
-const PISTON_API = 'https://emkc.org/api/v2/piston/execute';
+// Wandbox API — free, no API key, CORS-enabled
+const WANDBOX_API = 'https://wandbox.org/api/compile.json';
 
 async function runJava(code, outputEl) {
   outputEl.className = 'code-output visible';
   outputEl.textContent = '⏳ Running...';
 
   try {
-    const res = await fetch(PISTON_API, {
+    const res = await fetch(WANDBOX_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        language: 'java',
-        version:  '*',
-        files:    [{ content: code }],
+        compiler: 'openjdk-head',
+        code:     code,
       }),
     });
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
-    const out = (data.run?.stdout || '') + (data.run?.stderr || '');
-    if (data.run?.stderr) {
+    const compileErr = data.compiler_error || '';
+    const output     = data.program_output || '';
+    const runtimeErr = data.program_error  || '';
+
+    if (compileErr) {
       outputEl.className = 'code-output visible error';
+      outputEl.textContent = compileErr;
+    } else if (runtimeErr) {
+      outputEl.className = 'code-output visible error';
+      outputEl.textContent = output + runtimeErr;
     } else {
       outputEl.className = 'code-output visible';
+      outputEl.textContent = output || '(no output)';
     }
-    outputEl.textContent = out || '(no output)';
   } catch (err) {
     outputEl.className = 'code-output visible error';
     outputEl.textContent = '❌ ' + err.message;
