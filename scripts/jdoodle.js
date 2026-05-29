@@ -10,7 +10,7 @@ async function runJava(code, outputEl) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        compiler: 'openjdk-head',
+        compiler: 'openjdk-jdk-22+36',
         code:     code,
       }),
     });
