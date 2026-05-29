@@ -1,7 +1,7 @@
 // JDoodle integration
 // Set your credentials here after signing up at jdoodle.com
-const JDOODLE_CLIENT_ID     = '';
-const JDOODLE_CLIENT_SECRET = '';
+const JDOODLE_CLIENT_ID     = '77219855c5bfeef7aa471d467ac0f1f3';
+const JDOODLE_CLIENT_SECRET = '3231829f1dd7e986a5db37e39e36feadaf7cb4b202ef3540dda7a0cde23189fc';
 
 const JDOODLE_API = 'https://api.jdoodle.com/v1/execute';
 
