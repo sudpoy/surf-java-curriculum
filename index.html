@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surf Java — Learn Java in 10 Weeks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <style>
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      background: radial-gradient(ellipse at 50% 0%, rgba(79,142,247,0.12) 0%, transparent 70%);
+    }
+    .hero .logo {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 520px;
+      margin: 0 auto 1.5rem;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .hero-meta span::before {
+      content: '• ';
+      color: var(--accent);
+    }
+
+    /* ── Progress banner ── */
+    .progress-banner {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .progress-banner .progress-label { font-weight: 700; white-space: nowrap; }
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      background: var(--surface2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--accent2);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+    .progress-pct { font-weight: 700; color: var(--accent2); white-space: nowrap; }
+
+    /* ── Curriculum grid ── */
+    .curriculum {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+    .curriculum h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .week-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.4rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.15s;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    .week-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+    .week-card.done { border-color: var(--accent2); }
+    .week-card.done::after {
+      content: '✓';
+      position: absolute;
+      top: 0.9rem; right: 1rem;
+      color: var(--accent2);
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .week-card .week-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.3rem;
+    }
+    .week-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .week-card .topics {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .week-card .card-tags {
+      margin-top: 0.75rem;
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .coming-soon {
+      opacity: 0.45;
+      cursor: default;
+    }
+    .coming-soon:hover {
+      border-color: var(--border);
+      transform: none;
+    }
+
+    /* ── Phase labels ── */
+    .phase-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 1.5rem 0 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .phase-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="logo">🏄 Surf Java</div>
+  <h1>Learn <span>Java</span> in 10 Weeks</h1>
+  <p>A structured, hands-on curriculum — from your first <code>println</code> to real object-oriented programs.</p>
+  <div class="hero-meta">
+    <span>10 lessons</span>
+    <span>~40 min lecture each</span>
+    <span>15 min coding exercises</span>
+    <span>Live code runner</span>
+  </div>
+</header>
+
+<div class="curriculum">
+
+  <div class="progress-banner" id="progress-banner">
+    <span class="progress-label">Your progress</span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <span class="progress-pct" id="progress-pct">0 / 10</span>
+  </div>
+
+  <!-- Phase 1 -->
+  <p class="phase-label">Phase 1 — Procedural Java</p>
+  <div class="week-grid" id="week-grid">
+
+    <a class="week-card" href="lessons/week01.html" data-week="1">
+      <div class="week-num">Week 1</div>
+      <h3>Hello, Java</h3>
+      <p class="topics">JVM model · variables · primitive types · your first program</p>
+      <div class="card-tags"><span class="tag tag-blue">Beginner</span></div>
+    </a>
+
+    <a class="week-card coming-soon" href="#" data-week="2">
+      <div class="week-num">Week 2</div>
+      <h3>Operators &amp; Decisions</h3>
+      <p class="topics">Arithmetic · comparisons · if/else · switch</p>
+      <div class="card-tags"><span class="tag tag-blue">Coming soon</span></div>
+    </a>
+
+    <a class="week-card coming-soon" href="#" data-week="3">
+      <div class="week-num">Week 3</div>
+      <h3>Loops</h3>
+      <p class="topics">while · for · do-while · break &amp; continue</p>
+      <div class="card-tags"><span class="tag tag-blue">Coming soon</span></div>
+    </a>
+
+    <a class="week-card coming-soon" href="#" data-week="4">
+      <div class="week-num">Week 4</div>
+      <h3>Methods</h3>
+      <p class="topics">Parameters · return types · overloading · scope</p>
+      <div class="card-tags"><span class="tag tag-blue">Coming soon</span></div>
+    </a>
+
+    <a class="week-card coming-soon" href="#" data-week="5">
+      <div class="week-num">Week 5</div>
+      <h3>Arrays &amp; Strings</h3>
+      <p class="topics">1-D arrays · for-each · String methods · StringBuilder</p>
+      <div class="card-tags"><span class="tag tag-blue">Coming soon</span></div>
+    </a>
+
+    <a class="week-card coming-soon" href="#" data-week="6">
+      <div class="week-num">Week 6</div>
+      <h3>Recursion</h3>
+      <p class="topics">Call stack · base case · tracing · common pitfalls</p>
+      <div class="card-tags"><span class="tag tag-warn">Tricky</span></div>
+    </a>
+
+    <!-- Phase 2 -->
+    <p class="phase-label" style="grid-column:1/-1">Phase 2 — Object-Oriented Java</p>
+
+    <a class="week-card coming-soon" href="#" data-week="7">
+      <div class="week-num">Week 7</div>
+      <h3>Classes &amp; Objects</h3>
+      <p class="topics">Fields · constructors · this · getters/setters · toString</p>
+      <div class="card-tags"><span class="tag tag-green">OOP</span></div>
+    </a>
+
+    <a class="week-card coming-soon" href="#" data-week="8">
+      <div class="week-num">Week 8</div>
+      <h3>Inheritance &amp; Interfaces</h3>
+      <p class="topics">extends · override · abstract · interface · polymorphism</p>
+      <div class="card-tags"><span class="tag tag-green">OOP</span></div>
+    </a>
+
+    <!-- Phase 3 -->
+    <p class="phase-label" style="grid-column:1/-1">Phase 3 — Standard Library</p>
+
+    <a class="week-card coming-soon" href="#" data-week="9">
+      <div class="week-num">Week 9</div>
+      <h3>Collections &amp; Generics</h3>
+      <p class="topics">ArrayList · HashMap · HashSet · iterating</p>
+      <div class="card-tags"><span class="tag tag-blue">Coming soon</span></div>
+    </a>
+
+    <a class="week-card coming-soon" href="#" data-week="10">
+      <div class="week-num">Week 10</div>
+      <h3>Exceptions &amp; File I/O</h3>
+      <p class="topics">try/catch · checked vs unchecked · reading &amp; writing files</p>
+      <div class="card-tags"><span class="tag tag-blue">Coming soon</span></div>
+    </a>
+
+  </div>
+</div>
+
+<script src="scripts/progress.js"></script>
+<script>
+  const p = getProgress();
+  const done = Object.values(p).filter(Boolean).length;
+  document.getElementById('progress-fill').style.width = (done / 10 * 100) + '%';
+  document.getElementById('progress-pct').textContent = `${done} / 10`;
+  document.querySelectorAll('.week-card[data-week]').forEach(card => {
+    if (p[card.dataset.week]) card.classList.add('done');
+  });
+</script>
+</body>
+</html>

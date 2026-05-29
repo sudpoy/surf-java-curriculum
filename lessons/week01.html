@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 1 — Hello, Java | Surf Java</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles/base.css" />
+  <link rel="stylesheet" href="../styles/lesson.css" />
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="lesson-nav">
+  <a class="nav-home" href="../index.html">🏄 Surf Java</a>
+  <div class="progress-dots">
+    <span class="active" title="Week 1"></span>
+    <span title="Week 2"></span>
+    <span title="Week 3"></span>
+    <span title="Week 4"></span>
+    <span title="Week 5"></span>
+    <span title="Week 6"></span>
+    <span title="Week 7"></span>
+    <span title="Week 8"></span>
+    <span title="Week 9"></span>
+    <span title="Week 10"></span>
+  </div>
+  <div class="nav-buttons">
+    <button class="btn-secondary" disabled>← Prev</button>
+    <a href="#"><button class="btn-secondary" disabled>Next →</button></a>
+  </div>
+</nav>
+
+<!-- ── Header ── -->
+<header class="lesson-header">
+  <div class="week-label">Week 1 of 10</div>
+  <h1>Hello, Java</h1>
+  <p class="subtitle">Your first Java program, how the JVM works, and the building blocks every Java program is made of.</p>
+  <div class="lesson-meta">
+    <span class="tag tag-blue">Lecture ~40 min</span>
+    <span class="tag tag-green">Exercise ~15 min</span>
+    <span class="tag tag-warn">Beginner</span>
+  </div>
+</header>
+
+<!-- ── Body ── -->
+<main class="lesson-body">
+
+  <!-- Section 1: How Java works -->
+  <h2 class="section-title">1. How Java Works</h2>
+
+  <div class="two-col">
+    <div class="explain-card">
+      <h3>The big picture</h3>
+      <p>Most languages compile directly to machine code for one specific computer. Java takes a different approach: it compiles to <strong>bytecode</strong> — a universal format that no real CPU understands natively.</p>
+      <p>The <strong>JVM (Java Virtual Machine)</strong> sits between your bytecode and the hardware. It reads the bytecode and executes it on whatever machine it's running on — Windows, Mac, Linux, doesn't matter.</p>
+      <p>This is what "Write Once, Run Anywhere" means. You compile once, and the JVM handles the rest.</p>
+      <div class="callout">
+        <strong>The flow:</strong> <code>.java</code> file → <code>javac</code> compiler → <code>.class</code> bytecode → JVM runs it
+      </div>
+    </div>
+    <div class="code-card">
+      <h3>Your first program</h3>
+      <div class="code-header">
+        <span class="filename">HelloWorld.java</span>
+        <button class="btn-secondary" onclick="copyCode(demo1code, this)">Copy</button>
+      </div>
+      <pre><code><span class="kw">public class</span> <span class="cls">HelloWorld</span> {
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        System.out.<span class="fn">println</span>(<span class="str">"Hello, World!"</span>);
+    }
+
+}</code></pre>
+      <div class="editor-actions" style="margin-top:0.75rem">
+        <button class="btn-primary" onclick="runDemo(demo1code, 'out1')">▶ Run</button>
+        <button class="btn-secondary" onclick="copyCode(demo1code, this)">Copy</button>
+      </div>
+      <div class="code-output" id="out1"></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="explain-card">
+      <h3>Dissecting <code>main</code></h3>
+      <p>Every Java program needs a <strong>main method</strong> — it's the entry point the JVM looks for when it starts your program.</p>
+      <p>Let's break the signature down word by word:</p>
+      <ul style="margin-left:1.2rem; line-height:2">
+        <li><code>public</code> — the JVM can call it from outside the class</li>
+        <li><code>static</code> — no object needed to call it</li>
+        <li><code>void</code> — it doesn't return a value</li>
+        <li><code>main</code> — the exact name the JVM looks for</li>
+        <li><code>String[] args</code> — command-line arguments (ignore for now)</li>
+      </ul>
+      <div class="callout warn">
+        The class name must match the filename exactly, including capitalization. <code>HelloWorld.java</code> must contain <code>class HelloWorld</code>.
+      </div>
+    </div>
+    <div class="code-card">
+      <h3>Print vs println</h3>
+      <div class="code-header">
+        <span class="filename">PrintDemo.java</span>
+        <button class="btn-secondary" onclick="copyCode(demo2code, this)">Copy</button>
+      </div>
+      <pre><code><span class="kw">public class</span> <span class="cls">PrintDemo</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+
+        <span class="cm">// println adds a newline at the end</span>
+        System.out.<span class="fn">println</span>(<span class="str">"First line"</span>);
+        System.out.<span class="fn">println</span>(<span class="str">"Second line"</span>);
+
+        <span class="cm">// print does NOT add a newline</span>
+        System.out.<span class="fn">print</span>(<span class="str">"Hello, "</span>);
+        System.out.<span class="fn">print</span>(<span class="str">"World!"</span>);
+    }
+}</code></pre>
+      <div class="editor-actions" style="margin-top:0.75rem">
+        <button class="btn-primary" onclick="runDemo(demo2code, 'out2')">▶ Run</button>
+        <button class="btn-secondary" onclick="copyCode(demo2code, this)">Copy</button>
+      </div>
+      <div class="code-output" id="out2"></div>
+    </div>
+  </div>
+
+  <!-- Section 2: Variables and Types -->
+  <h2 class="section-title">2. Variables &amp; Primitive Types</h2>
+
+  <div class="two-col">
+    <div class="explain-card">
+      <h3>What is a variable?</h3>
+      <p>A variable is a named box that holds a value. In Java, every variable has a <strong>type</strong> that says what kind of value it can hold — and that type never changes.</p>
+      <p>The 4 primitive types you'll use most:</p>
+      <table style="width:100%; border-collapse:collapse; font-size:0.9rem; margin-top:0.5rem">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border); color:var(--text-muted)">
+            <th style="text-align:left;padding:0.3rem 0.5rem">Type</th>
+            <th style="text-align:left;padding:0.3rem 0.5rem">Stores</th>
+            <th style="text-align:left;padding:0.3rem 0.5rem">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.4rem 0.5rem"><code>int</code></td>
+            <td style="padding:0.4rem 0.5rem">Whole numbers</td>
+            <td style="padding:0.4rem 0.5rem"><code>42</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.4rem 0.5rem"><code>double</code></td>
+            <td style="padding:0.4rem 0.5rem">Decimal numbers</td>
+            <td style="padding:0.4rem 0.5rem"><code>3.14</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.4rem 0.5rem"><code>boolean</code></td>
+            <td style="padding:0.4rem 0.5rem">true / false</td>
+            <td style="padding:0.4rem 0.5rem"><code>true</code></td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem 0.5rem"><code>char</code></td>
+            <td style="padding:0.4rem 0.5rem">Single character</td>
+            <td style="padding:0.4rem 0.5rem"><code>'A'</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout" style="margin-top:0.75rem">
+        <code>String</code> is not a primitive — it's a class. But it's used so often it behaves like one.
+      </div>
+    </div>
+    <div class="code-card">
+      <h3>Variables in action</h3>
+      <div class="code-header">
+        <span class="filename">Variables.java</span>
+        <button class="btn-secondary" onclick="copyCode(demo3code, this)">Copy</button>
+      </div>
+      <pre><code><span class="kw">public class</span> <span class="cls">Variables</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+
+        <span class="kw">int</span> age = <span class="num">15</span>;
+        <span class="kw">double</span> height = <span class="num">1.75</span>;
+        <span class="kw">boolean</span> isStudent = <span class="kw">true</span>;
+        <span class="kw">char</span> grade = <span class="str">'A'</span>;
+        String name = <span class="str">"Alex"</span>;
+
+        System.out.<span class="fn">println</span>(<span class="str">"Name:    "</span> + name);
+        System.out.<span class="fn">println</span>(<span class="str">"Age:     "</span> + age);
+        System.out.<span class="fn">println</span>(<span class="str">"Height:  "</span> + height + <span class="str">"m"</span>);
+        System.out.<span class="fn">println</span>(<span class="str">"Student: "</span> + isStudent);
+        System.out.<span class="fn">println</span>(<span class="str">"Grade:   "</span> + grade);
+    }
+}</code></pre>
+      <div class="editor-actions" style="margin-top:0.75rem">
+        <button class="btn-primary" onclick="runDemo(demo3code, 'out3')">▶ Run</button>
+        <button class="btn-secondary" onclick="copyCode(demo3code, this)">Copy</button>
+      </div>
+      <div class="code-output" id="out3"></div>
+    </div>
+  </div>
+
+  <!-- Section 3: String basics -->
+  <h2 class="section-title">3. Working with Strings</h2>
+
+  <div class="two-col">
+    <div class="explain-card">
+      <h3>Concatenation &amp; escape characters</h3>
+      <p>You can join strings together with <code>+</code>. When you mix a String with a number, Java automatically converts the number to a String.</p>
+      <p>Some characters need an <strong>escape sequence</strong> because they'd confuse the compiler:</p>
+      <ul style="margin-left:1.2rem; line-height:2; font-family: var(--font-mono); font-size:0.9rem">
+        <li><code>\n</code> — newline</li>
+        <li><code>\t</code> — tab</li>
+        <li><code>\"</code> — a literal quote mark</li>
+        <li><code>\\</code> — a literal backslash</li>
+      </ul>
+      <div class="callout warn">
+        <strong>Common mistake:</strong> <code>"5" + 3</code> gives <code>"53"</code>, not <code>8</code>. If one side is a String, <code>+</code> concatenates instead of adding.
+      </div>
+    </div>
+    <div class="code-card">
+      <h3>String tricks</h3>
+      <div class="code-header">
+        <span class="filename">Strings.java</span>
+        <button class="btn-secondary" onclick="copyCode(demo4code, this)">Copy</button>
+      </div>
+      <pre><code><span class="kw">public class</span> <span class="cls">Strings</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+
+        String first = <span class="str">"Java"</span>;
+        String second = <span class="str">"Surfer"</span>;
+
+        <span class="cm">// Concatenation</span>
+        System.out.<span class="fn">println</span>(first + <span class="str">" "</span> + second);
+
+        <span class="cm">// Escape characters</span>
+        System.out.<span class="fn">println</span>(<span class="str">"Line 1\nLine 2\nLine 3"</span>);
+        System.out.<span class="fn">println</span>(<span class="str">"She said: \"Hello!\""</span>);
+
+        <span class="cm">// String + number</span>
+        <span class="kw">int</span> score = <span class="num">100</span>;
+        System.out.<span class="fn">println</span>(<span class="str">"Score: "</span> + score);
+
+        <span class="cm">// String length</span>
+        System.out.<span class="fn">println</span>(<span class="str">"Length: "</span> + first.<span class="fn">length</span>());
+    }
+}</code></pre>
+      <div class="editor-actions" style="margin-top:0.75rem">
+        <button class="btn-primary" onclick="runDemo(demo4code, 'out4')">▶ Run</button>
+        <button class="btn-secondary" onclick="copyCode(demo4code, this)">Copy</button>
+      </div>
+      <div class="code-output" id="out4"></div>
+    </div>
+  </div>
+
+  <!-- ── Exercise ── -->
+  <div class="exercise-section">
+    <h2>🏄 Exercise — Your Bio Card</h2>
+    <p class="exercise-desc">
+      Declare variables for your name, age, favourite hobby, and a fun fact. Then print a formatted bio using those variables. The output should look like the example below — but with your own details.
+    </p>
+
+    <pre style="margin-bottom:1.25rem; font-size:0.85rem"><code>===== My Bio =====
+Name:      Alex
+Age:       15
+Hobby:     surfing
+Fun fact:  I can solve a Rubik's cube in under 2 minutes.
+==================</code></pre>
+
+    <div class="editor-wrap">
+      <textarea id="exercise-editor" spellcheck="false">public class BioCard {
+    public static void main(String[] args) {
+
+        // Declare your variables here
+        String name    = "Alex";
+        int    age     = 15;
+        String hobby   = "surfing";
+        String funFact = "I can solve a Rubik's cube in under 2 minutes.";
+
+        // Print the bio card
+        // TODO: print each line using the variables above
+
+    }
+}</textarea>
+    </div>
+
+    <div class="editor-actions">
+      <button class="btn-primary" id="run-exercise">▶ Run</button>
+      <button class="btn-secondary" id="hint-btn">💡 Hint</button>
+      <button class="btn-secondary" id="copy-exercise">Copy</button>
+    </div>
+
+    <div class="hint-box" id="hint-box">
+      <strong>Hint 1:</strong> Use <code>System.out.println()</code> for each line.<br>
+      <strong>Hint 2:</strong> Combine fixed text and variables with <code>+</code>, like: <code>"Name: " + name</code><br>
+      <strong>Hint 3:</strong> Use <code>\t</code> or spaces to align the columns neatly.
+    </div>
+
+    <div class="exercise-output" id="exercise-output"></div>
+  </div>
+
+  <!-- ── Quiz ── -->
+  <section class="quiz-section">
+    <h2>✅ Quick Check — 5 Questions</h2>
+    <form id="quiz-form">
+
+      <div class="quiz-q" data-answer="b" data-explanation="bytecode (.class files), which the JVM then executes">
+        <p>1. What does <code>javac</code> compile your <code>.java</code> file into?</p>
+        <label><input type="radio" name="q1" value="a"> Machine code that runs directly on the CPU</label>
+        <label><input type="radio" name="q1" value="b"> Bytecode that the JVM executes</label>
+        <label><input type="radio" name="q1" value="c"> A Python script</label>
+        <label><input type="radio" name="q1" value="d"> An executable .exe file</label>
+        <div class="quiz-result"></div>
+      </div>
+
+      <div class="quiz-q" data-answer="c" data-explanation="void — main doesn't return a value">
+        <p>2. What return type does the <code>main</code> method have?</p>
+        <label><input type="radio" name="q2" value="a"> int</label>
+        <label><input type="radio" name="q2" value="b"> String</label>
+        <label><input type="radio" name="q2" value="c"> void</label>
+        <label><input type="radio" name="q2" value="d"> boolean</label>
+        <div class="quiz-result"></div>
+      </div>
+
+      <div class="quiz-q" data-answer="b" data-explanation='"53" — the + operator concatenates when one side is a String'>
+        <p>3. What does <code>System.out.println("5" + 3);</code> print?</p>
+        <label><input type="radio" name="q3" value="a"> 8</label>
+        <label><input type="radio" name="q3" value="b"> 53</label>
+        <label><input type="radio" name="q3" value="c"> "5"3</label>
+        <label><input type="radio" name="q3" value="d"> Compile error</label>
+        <div class="quiz-result"></div>
+      </div>
+
+      <div class="quiz-q" data-answer="d" data-explanation="double — it stores decimal (floating-point) numbers">
+        <p>4. Which type would you use to store the value <code>3.14</code>?</p>
+        <label><input type="radio" name="q4" value="a"> int</label>
+        <label><input type="radio" name="q4" value="b"> char</label>
+        <label><input type="radio" name="q4" value="c"> boolean</label>
+        <label><input type="radio" name="q4" value="d"> double</label>
+        <div class="quiz-result"></div>
+      </div>
+
+      <div class="quiz-q" data-answer="a" data-explanation='println adds a newline; print does not'>
+        <p>5. What is the difference between <code>System.out.print()</code> and <code>System.out.println()</code>?</p>
+        <label><input type="radio" name="q5" value="a"> println adds a newline at the end; print does not</label>
+        <label><input type="radio" name="q5" value="b"> print is faster than println</label>
+        <label><input type="radio" name="q5" value="c"> They are identical</label>
+        <label><input type="radio" name="q5" value="d"> print only works with numbers</label>
+        <div class="quiz-result"></div>
+      </div>
+
+    </form>
+    <div class="quiz-actions">
+      <button class="btn-primary" id="quiz-submit">Submit Answers</button>
+      <button class="btn-secondary" id="quiz-retry" style="display:none">Try Again</button>
+    </div>
+    <div class="quiz-score" id="quiz-score"></div>
+  </section>
+
+  <!-- ── Complete ── -->
+  <div class="complete-bar">
+    <button class="btn-success" id="complete-btn" style="font-size:1rem; padding:0.7rem 2rem">
+      Mark Lesson Complete ✓
+    </button>
+  </div>
+
+</main>
+
+<!-- ── Scripts ── -->
+<script src="../scripts/jdoodle.js"></script>
+<script src="../scripts/quiz.js"></script>
+<script src="../scripts/progress.js"></script>
+
+<script>
+// Demo code strings
+const demo1code = `public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}`;
+
+const demo2code = `public class PrintDemo {
+    public static void main(String[] args) {
+        System.out.println("First line");
+        System.out.println("Second line");
+        System.out.print("Hello, ");
+        System.out.print("World!");
+    }
+}`;
+
+const demo3code = `public class Variables {
+    public static void main(String[] args) {
+        int age = 15;
+        double height = 1.75;
+        boolean isStudent = true;
+        char grade = 'A';
+        String name = "Alex";
+
+        System.out.println("Name:    " + name);
+        System.out.println("Age:     " + age);
+        System.out.println("Height:  " + height + "m");
+        System.out.println("Student: " + isStudent);
+        System.out.println("Grade:   " + grade);
+    }
+}`;
+
+const demo4code = `public class Strings {
+    public static void main(String[] args) {
+        String first = "Java";
+        String second = "Surfer";
+
+        System.out.println(first + " " + second);
+        System.out.println("Line 1\\nLine 2\\nLine 3");
+        System.out.println("She said: \\"Hello!\\"");
+
+        int score = 100;
+        System.out.println("Score: " + score);
+        System.out.println("Length: " + first.length());
+    }
+}`;
+
+function runDemo(code, outputId) {
+  const el = document.getElementById(outputId);
+  runJava(code, el);
+}
+
+// Exercise
+const exerciseEditor = document.getElementById('exercise-editor');
+document.getElementById('run-exercise').addEventListener('click', () => {
+  const out = document.getElementById('exercise-output');
+  out.classList.add('visible');
+  runJava(exerciseEditor.value, out);
+});
+document.getElementById('hint-btn').addEventListener('click', () => {
+  document.getElementById('hint-box').classList.toggle('visible');
+});
+document.getElementById('copy-exercise').addEventListener('click', async () => {
+  await copyCode(exerciseEditor.value, document.getElementById('copy-exercise'));
+});
+
+// Progress
+updateProgressDots(1);
+initCompleteButton(1);
+</script>
+
+</body>
+</html>
