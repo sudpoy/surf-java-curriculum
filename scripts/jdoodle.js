@@ -1,39 +1,37 @@
-// Wandbox API — free, no API key, CORS-enabled
-const WANDBOX_API = 'https://wandbox.org/api/compile.json';
+// Judge0 CE — free public instance, no API key required
+const JUDGE0_API = 'https://ce.judge0.com/submissions?base64_encoded=false&wait=true';
+const JAVA_LANGUAGE_ID = 62;
 
 async function runJava(code, outputEl) {
   outputEl.className = 'code-output visible';
   outputEl.textContent = '⏳ Running...';
 
   try {
-    const classMatch = code.match(/public\s+class\s+(\w+)/);
-    const filename   = classMatch ? classMatch[1] + '.java' : 'Main.java';
-
-    const res = await fetch(WANDBOX_API, {
+    const res = await fetch(JUDGE0_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        compiler: 'openjdk-jdk-22+36',
-        codes:    [{ file: filename, code: code }],
+        source_code:  code,
+        language_id:  JAVA_LANGUAGE_ID,
       }),
     });
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
-    const compileErr = data.compiler_error || '';
-    const output     = data.program_output || '';
-    const runtimeErr = data.program_error  || '';
+    const compileErr = data.compile_output || '';
+    const stdout     = data.stdout         || '';
+    const stderr     = data.stderr         || '';
 
     if (compileErr) {
       outputEl.className = 'code-output visible error';
       outputEl.textContent = compileErr;
-    } else if (runtimeErr) {
+    } else if (stderr) {
       outputEl.className = 'code-output visible error';
-      outputEl.textContent = output + runtimeErr;
+      outputEl.textContent = stdout + stderr;
     } else {
       outputEl.className = 'code-output visible';
-      outputEl.textContent = output || '(no output)';
+      outputEl.textContent = stdout || '(no output)';
     }
   } catch (err) {
     outputEl.className = 'code-output visible error';
