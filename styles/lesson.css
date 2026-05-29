@@ -176,6 +176,7 @@
   overflow: hidden;
   margin-bottom: 0.75rem;
 }
+.demo-editor,
 #exercise-editor {
   width: 100%;
   background: var(--code-bg);

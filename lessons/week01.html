@@ -67,16 +67,18 @@
         <span class="filename">HelloWorld.java</span>
         <button class="btn-secondary" onclick="copyCode(demo1code, this)">Copy</button>
       </div>
-      <pre><code><span class="kw">public class</span> <span class="cls">HelloWorld</span> {
+      <div class="editor-wrap">
+        <textarea class="demo-editor" id="ed1" spellcheck="false">public class HelloWorld {
 
-    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
-        System.out.<span class="fn">println</span>(<span class="str">"Hello, World!"</span>);
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
     }
 
-}</code></pre>
+}</textarea>
+      </div>
       <div class="editor-actions" style="margin-top:0.75rem">
-        <button class="btn-primary" onclick="runDemo(demo1code, 'out1')">▶ Run</button>
-        <button class="btn-secondary" onclick="copyCode(demo1code, this)">Copy</button>
+        <button class="btn-primary" onclick="runDemo('ed1', 'out1')">▶ Run</button>
+        <button class="btn-secondary" onclick="copyEditor('ed1', this)">Copy</button>
       </div>
       <div class="code-output" id="out1"></div>
     </div>
@@ -104,21 +106,23 @@
         <span class="filename">PrintDemo.java</span>
         <button class="btn-secondary" onclick="copyCode(demo2code, this)">Copy</button>
       </div>
-      <pre><code><span class="kw">public class</span> <span class="cls">PrintDemo</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+      <div class="editor-wrap">
+        <textarea class="demo-editor" id="ed2" spellcheck="false">public class PrintDemo {
+    public static void main(String[] args) {
 
-        <span class="cm">// println adds a newline at the end</span>
-        System.out.<span class="fn">println</span>(<span class="str">"First line"</span>);
-        System.out.<span class="fn">println</span>(<span class="str">"Second line"</span>);
+        // println adds a newline at the end
+        System.out.println("First line");
+        System.out.println("Second line");
 
-        <span class="cm">// print does NOT add a newline</span>
-        System.out.<span class="fn">print</span>(<span class="str">"Hello, "</span>);
-        System.out.<span class="fn">print</span>(<span class="str">"World!"</span>);
+        // print does NOT add a newline
+        System.out.print("Hello, ");
+        System.out.print("World!");
     }
-}</code></pre>
+}</textarea>
+      </div>
       <div class="editor-actions" style="margin-top:0.75rem">
-        <button class="btn-primary" onclick="runDemo(demo2code, 'out2')">▶ Run</button>
-        <button class="btn-secondary" onclick="copyCode(demo2code, this)">Copy</button>
+        <button class="btn-primary" onclick="runDemo('ed2', 'out2')">▶ Run</button>
+        <button class="btn-secondary" onclick="copyEditor('ed2', this)">Copy</button>
       </div>
       <div class="code-output" id="out2"></div>
     </div>
@@ -173,25 +177,27 @@
         <span class="filename">Variables.java</span>
         <button class="btn-secondary" onclick="copyCode(demo3code, this)">Copy</button>
       </div>
-      <pre><code><span class="kw">public class</span> <span class="cls">Variables</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+      <div class="editor-wrap">
+        <textarea class="demo-editor" id="ed3" spellcheck="false">public class Variables {
+    public static void main(String[] args) {
 
-        <span class="kw">int</span> age = <span class="num">15</span>;
-        <span class="kw">double</span> height = <span class="num">1.75</span>;
-        <span class="kw">boolean</span> isStudent = <span class="kw">true</span>;
-        <span class="kw">char</span> grade = <span class="str">'A'</span>;
-        String name = <span class="str">"Alex"</span>;
+        int age = 15;
+        double height = 1.75;
+        boolean isStudent = true;
+        char grade = 'A';
+        String name = "Alex";
 
-        System.out.<span class="fn">println</span>(<span class="str">"Name:    "</span> + name);
-        System.out.<span class="fn">println</span>(<span class="str">"Age:     "</span> + age);
-        System.out.<span class="fn">println</span>(<span class="str">"Height:  "</span> + height + <span class="str">"m"</span>);
-        System.out.<span class="fn">println</span>(<span class="str">"Student: "</span> + isStudent);
-        System.out.<span class="fn">println</span>(<span class="str">"Grade:   "</span> + grade);
+        System.out.println("Name:    " + name);
+        System.out.println("Age:     " + age);
+        System.out.println("Height:  " + height + "m");
+        System.out.println("Student: " + isStudent);
+        System.out.println("Grade:   " + grade);
     }
-}</code></pre>
+}</textarea>
+      </div>
       <div class="editor-actions" style="margin-top:0.75rem">
-        <button class="btn-primary" onclick="runDemo(demo3code, 'out3')">▶ Run</button>
-        <button class="btn-secondary" onclick="copyCode(demo3code, this)">Copy</button>
+        <button class="btn-primary" onclick="runDemo('ed3', 'out3')">▶ Run</button>
+        <button class="btn-secondary" onclick="copyEditor('ed3', this)">Copy</button>
       </div>
       <div class="code-output" id="out3"></div>
     </div>
@@ -221,30 +227,32 @@
         <span class="filename">Strings.java</span>
         <button class="btn-secondary" onclick="copyCode(demo4code, this)">Copy</button>
       </div>
-      <pre><code><span class="kw">public class</span> <span class="cls">Strings</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+      <div class="editor-wrap">
+        <textarea class="demo-editor" id="ed4" spellcheck="false">public class Strings {
+    public static void main(String[] args) {
 
-        String first = <span class="str">"Java"</span>;
-        String second = <span class="str">"Surfer"</span>;
+        String first = "Java";
+        String second = "Surfer";
 
-        <span class="cm">// Concatenation</span>
-        System.out.<span class="fn">println</span>(first + <span class="str">" "</span> + second);
+        // Concatenation
+        System.out.println(first + " " + second);
 
-        <span class="cm">// Escape characters</span>
-        System.out.<span class="fn">println</span>(<span class="str">"Line 1\nLine 2\nLine 3"</span>);
-        System.out.<span class="fn">println</span>(<span class="str">"She said: \"Hello!\""</span>);
+        // Escape characters
+        System.out.println("Line 1\nLine 2\nLine 3");
+        System.out.println("She said: \"Hello!\"");
 
-        <span class="cm">// String + number</span>
-        <span class="kw">int</span> score = <span class="num">100</span>;
-        System.out.<span class="fn">println</span>(<span class="str">"Score: "</span> + score);
+        // String + number
+        int score = 100;
+        System.out.println("Score: " + score);
 
-        <span class="cm">// String length</span>
-        System.out.<span class="fn">println</span>(<span class="str">"Length: "</span> + first.<span class="fn">length</span>());
+        // String length
+        System.out.println("Length: " + first.length());
     }
-}</code></pre>
+}</textarea>
+      </div>
       <div class="editor-actions" style="margin-top:0.75rem">
-        <button class="btn-primary" onclick="runDemo(demo4code, 'out4')">▶ Run</button>
-        <button class="btn-secondary" onclick="copyCode(demo4code, this)">Copy</button>
+        <button class="btn-primary" onclick="runDemo('ed4', 'out4')">▶ Run</button>
+        <button class="btn-secondary" onclick="copyEditor('ed4', this)">Copy</button>
       </div>
       <div class="code-output" id="out4"></div>
     </div>
@@ -364,61 +372,20 @@ Fun fact:  I can solve a Rubik's cube in under 2 minutes.
 </main>
 
 <!-- ── Scripts ── -->
-<script src="../scripts/jdoodle.js"></script>
+<script src="../scripts/jdoodle.js?v=2"></script>
 <script src="../scripts/quiz.js"></script>
 <script src="../scripts/progress.js"></script>
 
 <script>
-// Demo code strings
-const demo1code = `public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}`;
-
-const demo2code = `public class PrintDemo {
-    public static void main(String[] args) {
-        System.out.println("First line");
-        System.out.println("Second line");
-        System.out.print("Hello, ");
-        System.out.print("World!");
-    }
-}`;
-
-const demo3code = `public class Variables {
-    public static void main(String[] args) {
-        int age = 15;
-        double height = 1.75;
-        boolean isStudent = true;
-        char grade = 'A';
-        String name = "Alex";
-
-        System.out.println("Name:    " + name);
-        System.out.println("Age:     " + age);
-        System.out.println("Height:  " + height + "m");
-        System.out.println("Student: " + isStudent);
-        System.out.println("Grade:   " + grade);
-    }
-}`;
-
-const demo4code = `public class Strings {
-    public static void main(String[] args) {
-        String first = "Java";
-        String second = "Surfer";
-
-        System.out.println(first + " " + second);
-        System.out.println("Line 1\\nLine 2\\nLine 3");
-        System.out.println("She said: \\"Hello!\\"");
-
-        int score = 100;
-        System.out.println("Score: " + score);
-        System.out.println("Length: " + first.length());
-    }
-}`;
-
-function runDemo(code, outputId) {
-  const el = document.getElementById(outputId);
+function runDemo(editorId, outputId) {
+  const code = document.getElementById(editorId).value;
+  const el   = document.getElementById(outputId);
   runJava(code, el);
+}
+
+async function copyEditor(editorId, btn) {
+  const code = document.getElementById(editorId).value;
+  await copyCode(code, btn);
 }
 
 // Exercise
