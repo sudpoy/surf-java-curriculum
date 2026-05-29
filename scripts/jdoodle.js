@@ -1,46 +1,31 @@
-// JDoodle integration
-// Set your credentials here after signing up at jdoodle.com
-const JDOODLE_CLIENT_ID     = '77219855c5bfeef7aa471d467ac0f1f3';
-const JDOODLE_CLIENT_SECRET = '3231829f1dd7e986a5db37e39e36feadaf7cb4b202ef3540dda7a0cde23189fc';
-
-const JDOODLE_API = 'https://api.jdoodle.com/v1/execute';
+// Piston API — free, no API key required, CORS-enabled
+const PISTON_API = 'https://emkc.org/api/v2/piston/execute';
 
 async function runJava(code, outputEl) {
   outputEl.className = 'code-output visible';
   outputEl.textContent = '⏳ Running...';
 
-  if (!JDOODLE_CLIENT_ID || !JDOODLE_CLIENT_SECRET) {
-    outputEl.className = 'code-output visible';
-    outputEl.innerHTML =
-      '⚙️  No API key configured yet.\n' +
-      'Copy this code and paste it into your IDE, or\n' +
-      'add your JDoodle credentials to scripts/jdoodle.js.';
-    return;
-  }
-
   try {
-    const res = await fetch(JDOODLE_API, {
+    const res = await fetch(PISTON_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        clientId:     JDOODLE_CLIENT_ID,
-        clientSecret: JDOODLE_CLIENT_SECRET,
-        script:       code,
-        language:     'java',
-        versionIndex: '4',
+        language: 'java',
+        version:  '*',
+        files:    [{ content: code }],
       }),
     });
 
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
-    if (data.error) {
+    const out = (data.run?.stdout || '') + (data.run?.stderr || '');
+    if (data.run?.stderr) {
       outputEl.className = 'code-output visible error';
-      outputEl.textContent = data.error;
     } else {
       outputEl.className = 'code-output visible';
-      outputEl.textContent = data.output || '(no output)';
     }
+    outputEl.textContent = out || '(no output)';
   } catch (err) {
     outputEl.className = 'code-output visible error';
     outputEl.textContent = '❌ ' + err.message;
