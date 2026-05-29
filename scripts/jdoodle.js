@@ -7,11 +7,14 @@ async function runJava(code, outputEl) {
   outputEl.textContent = '⏳ Running...';
 
   try {
+    // Judge0 uses Main.java — strip `public` from top-level class so it compiles
+    const sanitized = code.replace(/public(\s+class\s)/, '$1');
+
     const res = await fetch(JUDGE0_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        source_code:  code,
+        source_code:  sanitized,
         language_id:  JAVA_LANGUAGE_ID,
       }),
     });
