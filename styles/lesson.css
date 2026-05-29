@@ -192,19 +192,25 @@
   outline: none;
 }
 
-/* CodeMirror host containers */
-.cm-host {
+/* CodeMirror 5 overrides */
+.CodeMirror {
+  font-family: var(--font-mono) !important;
+  font-size: 0.88rem !important;
+  height: auto !important;
   border-radius: var(--radius-sm);
-  overflow: hidden;
+  border: none !important;
+  min-height: 120px;
 }
-.cm-host .cm-editor {
+.CodeMirror-scroll {
+  max-height: 320px;
+  min-height: 120px;
+}
+.editor-wrap .CodeMirror {
   border-radius: var(--radius-sm);
 }
-.cm-host .cm-editor.cm-focused {
-  outline: none;
-}
-.cm-host .cm-scroller {
-  max-height: 340px;
+.CodeMirror-focused {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--accent) !important;
 }
 .editor-actions {
   display: flex;

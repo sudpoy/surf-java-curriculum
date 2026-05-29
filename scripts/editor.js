@@ -1,47 +1,39 @@
-import { EditorView, basicSetup } from 'https://esm.sh/codemirror@6.0.1';
-import { java }                   from 'https://esm.sh/@codemirror/lang-java@6.0.1';
-import { oneDark }                from 'https://esm.sh/@codemirror/theme-one-dark@6.1.2';
-import { EditorState }            from 'https://esm.sh/@codemirror/state@6.4.1';
+// CodeMirror 5 editor helpers
+// CM5 is loaded as script tags in the page (no modules needed)
 
-// Map of id → EditorView
 const editors = {};
 
 /**
- * Mount a CodeMirror editor inside the element with the given id.
- * The element's current textContent is used as initial code.
+ * Replace the element with id `hostId` with a CodeMirror editor.
+ * Returns the CodeMirror instance.
  */
-export function mountEditor(id, initialCode) {
-  const host = document.getElementById(id);
-  if (!host) return;
+function mountEditor(hostId, initialCode) {
+  const host = document.getElementById(hostId);
+  if (!host) return null;
 
-  const view = new EditorView({
-    state: EditorState.create({
-      doc: initialCode,
-      extensions: [
-        basicSetup,
-        java(),
-        oneDark,
-        EditorView.theme({
-          '&': {
-            fontSize: '0.88rem',
-            fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-            backgroundColor: 'var(--code-bg)',
-          },
-          '.cm-scroller': { overflow: 'auto' },
-          '.cm-content': { padding: '0.75rem 0' },
-          '.cm-gutters': { backgroundColor: '#0d1017', borderRight: '1px solid #2e3350' },
-        }),
-        EditorView.lineWrapping,
-      ],
-    }),
-    parent: host,
+  // Replace the div with a textarea, then apply CodeMirror
+  const ta = document.createElement('textarea');
+  ta.value = initialCode;
+  host.replaceWith(ta);
+  ta.id = hostId; // keep the same id
+
+  const cm = CodeMirror.fromTextArea(ta, {
+    mode:        'text/x-java',
+    theme:       'dracula',
+    lineNumbers: true,
+    indentUnit:  4,
+    tabSize:     4,
+    indentWithTabs: false,
+    lineWrapping: false,
+    autofocus:   false,
+    extraKeys:   { Tab: cm => cm.execCommand('indentMore') },
   });
 
-  editors[id] = view;
+  editors[hostId] = cm;
+  return cm;
 }
 
-/** Get the current code from an editor by id */
-export function getCode(id) {
-  const view = editors[id];
-  return view ? view.state.doc.toString() : '';
+function getCode(hostId) {
+  const cm = editors[hostId];
+  return cm ? cm.getValue() : '';
 }
