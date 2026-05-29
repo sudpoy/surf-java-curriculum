@@ -6,12 +6,15 @@ async function runJava(code, outputEl) {
   outputEl.textContent = '⏳ Running...';
 
   try {
+    const classMatch = code.match(/public\s+class\s+(\w+)/);
+    const filename   = classMatch ? classMatch[1] + '.java' : 'Main.java';
+
     const res = await fetch(WANDBOX_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         compiler: 'openjdk-jdk-22+36',
-        code:     code,
+        codes:    [{ file: filename, code: code }],
       }),
     });
 
