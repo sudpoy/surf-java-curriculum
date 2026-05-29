@@ -7,8 +7,8 @@ async function runJava(code, outputEl) {
   outputEl.textContent = '⏳ Running...';
 
   try {
-    // Judge0 uses Main.java — strip `public` from top-level class so it compiles
-    const sanitized = code.replace(/public(\s+class\s)/, '$1');
+    // Judge0 uses Main.java and runs class Main — rename top-level class accordingly
+    const sanitized = code.replace(/public\s+class\s+\w+/, 'class Main');
 
     const res = await fetch(JUDGE0_API, {
       method: 'POST',
